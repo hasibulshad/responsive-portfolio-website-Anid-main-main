@@ -129,12 +129,12 @@ img {
 
 /*=============== BLOB ===============*/
 .blob-animate {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   background: linear-gradient(180deg, var(--first-color-alt) 20%, var(--first-color-light) 100%);
   border-radius: 50%;
   position: absolute;
-  filter: blur(35px);
+  filter: blur(40px);
   z-index: -1;
   animation: animateBlob 5s linear infinite;
 }
@@ -279,7 +279,7 @@ img {
 .about--perfil { width: 220px; }
 .about--shadow{ width: 100%; height: 258%; position: absolute; z-index: 1; background: linear-gradient(180deg, hsla(240, 100%, 2%, 0) 60%, var(--body-color) 95%); }
 
-/*=============== PROJECTS (FIXED & ALIGNED) ===============*/
+/*=============== PROJECTS ===============*/
 .projects--main-title {
    text-align: left;
    margin-left: 1.5rem;
@@ -290,20 +290,19 @@ img {
    display: inline-block;
    margin-top: .5rem;
    color: var(--first-color);
-   font-size: clamp(2rem, 5vw, 3.5rem); /* ট্যাগ সাইজ ঠিক করা হয়েছে */
+   font-size: clamp(2rem, 5vw, 3.5rem); 
 }
 
 .projects--container { padding-top: 2rem; }
 .projects--swiper { padding-inline: 1rem; padding-bottom: 4rem; }
 
-/* কার্ড সমান করার প্রধান CSS */
 .projects--card {
   position: relative;
   background-color: var(--container-color);
   padding: 1.5rem;
   border-radius: 1.5rem;
   overflow: hidden;
-  height: 100%; /* স্বয়ংক্রিয়ভাবে সমান উচ্চতা */
+  height: 100%; 
   display: flex;
   flex-direction: column;
 }
@@ -322,20 +321,18 @@ img {
 .projects--number h1 { font-size: var(--biggest-font-size); }
 .projects--number h3 { font-weight: var(--font-regular); font-size: var(--h3-font-size); }
 
-/* কন্টেন্ট টেক্সট এরিয়া নির্দিষ্ট সাইজ */
 .projects--data { 
   margin-block: 1.5rem;
   flex-grow: 1; 
 }
-.projects--title { font-size: var(--h2-font-size); margin-bottom: .75rem; min-height: 3.5rem; } /* টাইটেল উচ্চতা ফিক্সড */
+.projects--title { font-size: var(--h2-font-size); margin-bottom: .75rem; min-height: 3.5rem; } 
 .projects--subtitle { font-family: var(--second-font); font-size: var(--small-font-size); margin-bottom: .25rem; }
 .projects--description { font-size: var(--small-font-size); min-height: 2.5rem; }
 
-/* ইমেজ রেসিশন ও সমান বক্স */
 .projects--image { 
   position: relative;
   width: 100%;
-  height: 200px; /* বক্স উচ্চতা ফিক্সড */
+  height: 200px; 
   border-radius: 1.5rem;
   overflow: hidden;
   margin-top: auto;
@@ -344,7 +341,7 @@ img {
 .projects--img {
    width: 100%;
    height: 100%;
-   object-fit: cover; /* ইমেজ কেটে পারফেক্টলি ফিট হবে */
+   object-fit: cover; 
    border-radius: 1.5rem;
 }
 
@@ -372,13 +369,58 @@ img {
 .projects .swiper-pagination-bullets{ bottom: 0; }
 .projects .swiper-pagination-bullet{ background-color: var(--first-color); transition: opacity .4s; }
 
-/*=============== WORK ===============*/
-.work--tabs { background-color: var(--container-color); padding: 1.25rem 2rem; border-radius: 4rem; display: flex; justify-content: space-between; }
-.work--button { background: none; color: var(--text-color); display: flex; align-items: center; column-gap: .25rem; font-size: var(--small-font-size); font-family: var(--second-font); cursor: pointer; transition: color .4s; }
+/*=============== WORK (🛠️ OVERLAP LAYER REMOVED AND CLICK LOCKED) ===============*/
+.work {
+  position: relative;
+  z-index: 5; /* ওপরে থাকা প্রজেক্টের শ্যাডো যেন একে ব্লক না করে */
+}
+
+.work--container {
+  position: relative;
+  z-index: 6;
+  /* ScrollReveal প্লাগইন বাগ প্রতিরোধ লজিক */
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.work--tabs { 
+  background-color: var(--container-color); 
+  padding: 1.25rem 2rem; 
+  border-radius: 4rem; 
+  display: flex !important; /* বাটন কন্টেইনার সব ডিভাইসে ফোর্স ওপেন */
+  justify-content: space-between;
+  position: relative;
+  z-index: 1000 !important; /* বাটন লেয়ারকে একদম উপরে নিয়ে আসা হলো */
+  pointer-events: auto !important; /* ক্লিকের নিশ্চয়তা */
+}
+
+.work--button { 
+  background: none; 
+  color: var(--text-color) !important; 
+  display: flex; 
+  align-items: center; 
+  column-gap: .25rem; 
+  font-size: var(--small-font-size); 
+  font-family: var(--second-font); 
+  cursor: pointer !important;
+  pointer-events: auto !important; /* ক্লিক ডিটেকশন লক */
+  position: relative;
+  z-index: 1005 !important;
+  transition: color .4s, text-shadow .4s;
+}
+
 .work--button i { font-size: 1rem; }
-.work--button:hover, .work--button.work-active { color: var(--first-color); }
-.work--area { position: relative; padding-left: 1rem; }
-.work--content { display: grid; row-gap: 4rem; }
+
+/* মোবাইল ও ল্যাপটপ (১ can ১১৪৯px) সব জায়গায় একটিভ গ্লো টেক্সট কালার */
+.work--button:hover, 
+.work--button.work-active { 
+  color: var(--first-color-light) !important;
+  text-shadow: 0 0 10px var(--first-color) !important;
+}
+
+.work--area { position: relative; padding-left: 1rem; z-index: 5; }
+.work--content { display: grid !important; row-gap: 4rem; opacity: 1 !important; transform: none !important; }
 .work--card { display: grid; row-gap: 1rem; }
 .work--data { display: flex; justify-content: space-between; }
 .work--title { font-size: var(--h2-font-size); margin-bottom: .5rem; }
@@ -387,8 +429,13 @@ img {
 .work--year { font-size: var(--h1-font-size); }
 .work--line { width: 4px; height: 100%; background: linear-gradient(180deg, hsla(var(--hue),60%, 64%, 0), var(--first-color-alt-2)); position: absolute; left: -.25rem; }
 .work--line::after { content: ''; width: 16px; height: 16px; background-color: var(--first-color-alt-2); border-radius: 50%; position: absolute; bottom: -1px; left: -6px; }
-.work--area [data-content] { display: none; }
-.work-active[data-content] { display: grid; }
+
+.work--area [data-content] { 
+  display: none !important; 
+}
+.work-active[data-content] { 
+  display: grid !important; 
+}
 
 /*=============== SERVICES ===============*/
 .services--container { row-gap: 2rem; }
@@ -478,6 +525,17 @@ img {
   .services--container { grid-template-columns: repeat(2, 350px); align-items: flex-start; }
 }
 
+/* 🟩 ফিক্স মিডিয়া কুয়েরি: ল্যাপটপের (১can১১৪৯px) বাটন ফ্লেক্স লক */
+@media screen and (min-width: 769px) and (max-width: 1149px) {
+  .work--tabs {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    width: 330px !important;
+    margin-inline: auto !important;
+  }
+}
+
 @media screen and (min-width: 1150px) {
   .container { margin-inline: auto; }
   .section { padding-block: 7rem 2rem; }
@@ -486,7 +544,7 @@ img {
   .nav { height: calc(var(--header-height) + 2rem); }
   .nav--logo { align-self: initial; }
   .nav--list { flex-direction: row; column-gap: 5.5rem; }
-  .home--container{ width: initial; padding-top: 3rem; }
+  .home--container { width: initial; padding-top: 3rem; }
   .home--data { position: absolute; left: 10rem; top: 18rem; z-index: 2; }
   .home--perfil { width: 400px; }
   .home--image { position: relative; display: flex; justify-content: center; }
@@ -510,13 +568,11 @@ img {
   .about--image .blob-animate:nth-child(2) { right: -1rem; bottom: 3rem; }
   .about--shadow { height: 600px; bottom: 0; }
 
-  /* লার্জ স্ক্রিনে টাইটেল ফিক্স */
   .projects--main-title { text-align: center; margin-left: 0; }
   .projects { padding-block: 9rem 4rem; }
   .projects--swiper { padding-bottom: 4rem; }
-  .projects--container { max-width: 1120px; } /* সুইপারের গ্রিড উইথ ঠিক করা হয়েছে */
+  .projects--container { max-width: 1120px; } 
   
-  /* লার্জ স্ক্রিনে কার্ডের উইথ গ্রিড অনুযায়ী অটো অ্যাডজাস্ট */
   .projects--card { padding: 2rem; border-radius: 2.5rem; }
   .projects--subtitle, .projects--description { font-size: var(--normal-font-size); }
   .projects--img { border-radius: 2rem; }
