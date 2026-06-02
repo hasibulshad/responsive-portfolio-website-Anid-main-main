@@ -44,7 +44,6 @@ const swiperProjects = new Swiper('.projects--swiper', {
       disableOnInteraction: false,
    },
    breakpoints: {
-      // স্ক্রিন অনুযায়ী রেসপন্সিভ ব্রেকপয়েন্ট
       540: { slidesPerView: 1 },
       768: { slidesPerView: 2 },
       1150: { slidesPerView: 3 }
@@ -56,7 +55,8 @@ const tabs = document.querySelectorAll('[data-target]'),
       tabContents = document.querySelectorAll('[data-content]');
 
 tabs.forEach((tab) => {
-   tab.addEventListener('click', () => {
+   tab.addEventListener('click', (e) => {
+      e.stopPropagation(); // ক্লিক বুদবুদ প্রতিরোধ লজিক
       const targetSelector = tab.dataset.target;
       const targetContent = document.querySelector(targetSelector);
 
@@ -189,7 +189,8 @@ if (typeof ScrollReveal !== 'undefined') {
       delay: 300,
    });
 
-   sr.reveal('.home--image, .projects--container, .work--container, .testimonials--container, .contact--container');
+   // 🛠️ ফাইনাল ফিক্স: এখান থেকে '.work--container' বাদ দেওয়া হয়েছে যাতে প্লাগইন মোবাইলে বা ল্যাপটপে বাটন লক না করে।
+   sr.reveal('.home--image, .projects--container, .testimonials--container, .contact--container');
    sr.reveal('.home--data', {delay: 500, origin: 'left'});
    sr.reveal('.home--info', {delay: 600, origin: 'right'});
    sr.reveal('.home--social, .home--cv', {delay: 700});
