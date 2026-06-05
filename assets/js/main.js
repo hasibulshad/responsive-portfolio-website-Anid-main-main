@@ -1,3 +1,32 @@
+/*=============== SHOW MENU / HIDDEN ===============*/
+const navMenu = document.getElementById('nav-menu'),
+      navToggle = document.getElementById('nav-toggle'),
+      navClose = document.getElementById('nav-close');
+
+/* Menu Show */
+if(navToggle) {
+   navToggle.addEventListener('click', () => {
+      navMenu.classList.add('show-menu');
+   });
+}
+
+/* Menu Hidden */
+if(navClose) {
+   navClose.addEventListener('click', () => {
+      navMenu.classList.remove('show-menu');
+   });
+}
+
+/* Remove Menu Mobile On Link Click */
+const navLink = document.querySelectorAll('.nav--link');
+
+const linkAction = () => {
+   const navMenu = document.getElementById('nav-menu');
+   navMenu.classList.remove('show-menu');
+};
+navLink.forEach(n => n.addEventListener('click', linkAction));
+
+
 /*=============== HOME SPLIT TEXT WITH ANIME.JS ===============*/
 const { animate, text, stagger } = anime
 
@@ -56,7 +85,7 @@ const tabs = document.querySelectorAll('[data-target]'),
 
 tabs.forEach((tab) => {
    tab.addEventListener('click', (e) => {
-      e.stopPropagation(); // ক্লিক বুদবুদ প্রতিরোধ লজিক
+      e.stopPropagation(); 
       const targetSelector = tab.dataset.target;
       const targetContent = document.querySelector(targetSelector);
 
@@ -189,7 +218,6 @@ if (typeof ScrollReveal !== 'undefined') {
       delay: 300,
    });
 
-   // 🛠️ ফাইনাল ফিক্স: এখান থেকে '.work--container' বাদ দেওয়া হয়েছে যাতে প্লাগইন মোবাইলে বা ল্যাপটপে বাটন লক না করে।
    sr.reveal('.home--image, .projects--container, .testimonials--container, .contact--container');
    sr.reveal('.home--data', {delay: 500, origin: 'left'});
    sr.reveal('.home--info', {delay: 600, origin: 'right'});
