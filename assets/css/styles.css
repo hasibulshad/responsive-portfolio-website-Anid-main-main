@@ -193,6 +193,7 @@ img {
 .nav {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-block: 1rem;
 }
 
@@ -200,7 +201,6 @@ img {
   font-family: var(--second-font);
   font-weight: var(--font-semi-bold);
   color: var(--title-color);
-  align-self: flex-start;
   transition: color .4s;
 }
 
@@ -208,22 +208,56 @@ img {
   color: var(--first-color);
 }
 
+/* মোবাইল রেসপন্সিভ নেভিগেশন লজিক */
+@media screen and (max-width: 1149px) {
+  .nav--menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    background-color: hsla(240, 8%, 6%, .8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    width: 70%;
+    height: 100%;
+    padding: 6rem 3rem;
+    transition: right .4s;
+    z-index: var(--z-fixed);
+  }
+}
+
+/* মেনু ওপেন ক্লাস */
+.show-menu {
+  right: 0 !important;
+}
+
 .nav--list {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  row-gap: .5rem;
+  row-gap: 2rem;
 }
 
 .nav--link {
   color: var(--title-color);
-  font: var(--font-semi-bold) var(--small-font-size) var(--second-font);
+  font: var(--font-semi-bold) var(--h3-font-size) var(--second-font);
   transition: color .4s, text-shadow .4s;
 }
 
 .nav--link:hover, .active-link {
   color: var(--first-color);
-  text-shadow: 0 8px var(--first-color);
+  text-shadow: 0 4px var(--first-color);
+}
+
+.nav--toggle, .nav--close {
+  display: flex;
+  font-size: 1.5rem;
+  color: var(--title-color);
+  cursor: pointer;
+}
+
+.nav--close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
 }
 
 /*=============== HOME ===============*/
@@ -369,16 +403,15 @@ img {
 .projects .swiper-pagination-bullets{ bottom: 0; }
 .projects .swiper-pagination-bullet{ background-color: var(--first-color); transition: opacity .4s; }
 
-/*=============== WORK (🛠️ OVERLAP LAYER REMOVED AND CLICK LOCKED) ===============*/
+/*=============== WORK ===============*/
 .work {
   position: relative;
-  z-index: 5; /* ওপরে থাকা প্রজেক্টের শ্যাডো যেন একে ব্লক না করে */
+  z-index: 5;
 }
 
 .work--container {
   position: relative;
   z-index: 6;
-  /* ScrollReveal প্লাগইন বাগ প্রতিরোধ লজিক */
   visibility: visible !important;
   opacity: 1 !important;
   transform: none !important;
@@ -388,11 +421,11 @@ img {
   background-color: var(--container-color); 
   padding: 1.25rem 2rem; 
   border-radius: 4rem; 
-  display: flex !important; /* বাটন কন্টেইনার সব ডিভাইসে ফোর্স ওপেন */
+  display: flex !important; 
   justify-content: space-between;
   position: relative;
-  z-index: 1000 !important; /* বাটন লেয়ারকে একদম উপরে নিয়ে আসা হলো */
-  pointer-events: auto !important; /* ক্লিকের নিশ্চয়তা */
+  z-index: 1000 !important; 
+  pointer-events: auto !important; 
 }
 
 .work--button { 
@@ -404,7 +437,7 @@ img {
   font-size: var(--small-font-size); 
   font-family: var(--second-font); 
   cursor: pointer !important;
-  pointer-events: auto !important; /* ক্লিক ডিটেকশন লক */
+  pointer-events: auto !important; 
   position: relative;
   z-index: 1005 !important;
   transition: color .4s, text-shadow .4s;
@@ -412,7 +445,6 @@ img {
 
 .work--button i { font-size: 1rem; }
 
-/* মোবাইল ও ল্যাপটপ (১ can ১১৪৯px) সব জায়গায় একটিভ গ্লো টেক্সট কালার */
 .work--button:hover, 
 .work--button.work-active { 
   color: var(--first-color-light) !important;
@@ -505,6 +537,7 @@ img {
   .projects--card { padding-inline: 1rem; }
   .work--tabs { padding-inline: 1rem; }
   .testimonials--card { width: 250px; padding-bottom: 2rem; }
+  .nav--menu { width: 80%; padding: 5rem 1.5rem; }
 }
 
 @media screen and (min-width: 540px) {
@@ -525,7 +558,6 @@ img {
   .services--container { grid-template-columns: repeat(2, 350px); align-items: flex-start; }
 }
 
-/* 🟩 ফিক্স মিডিয়া কুয়েরি: ল্যাপটপের (১can১১৪৯px) বাটন ফ্লেক্স লক */
 @media screen and (min-width: 769px) and (max-width: 1149px) {
   .work--tabs {
     display: flex !important;
@@ -536,14 +568,20 @@ img {
   }
 }
 
+/* বড় স্ক্রিনে টগল বাটন হাইড থাকবে এবং মেনু ডানপাশে সোজা দেখাবে */
 @media screen and (min-width: 1150px) {
   .container { margin-inline: auto; }
   .section { padding-block: 7rem 2rem; }
   .section--title { margin-bottom: 4rem; }
   .blob { width: 300px; height: 300px; }
+  
   .nav { height: calc(var(--header-height) + 2rem); }
-  .nav--logo { align-self: initial; }
+  .nav--toggle, .nav--close { display: none; }
+  .nav--menu { width: initial; }
   .nav--list { flex-direction: row; column-gap: 5.5rem; }
+  .nav--link { font-size: var(--small-font-size); }
+  .nav--link:hover, .active-link { text-shadow: 0 8px var(--first-color); }
+
   .home--container { width: initial; padding-top: 3rem; }
   .home--data { position: absolute; left: 10rem; top: 18rem; z-index: 2; }
   .home--perfil { width: 400px; }
