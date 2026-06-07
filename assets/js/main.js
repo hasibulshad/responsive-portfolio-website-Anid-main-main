@@ -266,20 +266,20 @@ if (typeof ScrollReveal !== 'undefined') {
       window.outerWidth - window.innerWidth > 160 ||
       window.outerHeight - window.innerHeight > 160;
 
-    if (devtools) {
-      document.body.innerHTML = `
-        <div style="
-          height:100vh;
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          background:black;
-          color:white;
-          font-size:30px;
-          font-family:sans-serif;
-        ">
-          Inspect Disabled
-        </div>
-      `;
-    }
-  }, 1000);
+  //   if (devtools) {
+  //     document.body.innerHTML = `
+  //       <div style="
+  //         height:100vh;
+  //         display:flex;
+  //         justify-content:center;
+  //         align-items:center;
+  //         background:black;
+  //         color:white;
+  //         font-size:30px;
+  //         font-family:sans-serif;
+  //       ">
+  //         Inspect Disabled
+  //       </div>
+  //     `;
+  //   }
+  // }, 1000);
