@@ -224,3 +224,62 @@ if (typeof ScrollReveal !== 'undefined') {
    sr.reveal('.home--social, .home--cv', {delay: 700});
    sr.reveal('.services--card', {interval: 100});
 }
+
+/*=============== Safe Website ===============*/
+  // Disable Right Click
+  document.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+  });
+
+  // Disable Inspect Shortcuts
+  document.onkeydown = function (e) {
+
+    // F12
+    if (e.keyCode == 123) {
+      return false;
+    }
+
+    // Ctrl+Shift+I
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+      return false;
+    }
+
+    // Ctrl+Shift+J
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+      return false;
+    }
+
+    // Ctrl+U
+    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+      return false;
+    }
+
+    // Ctrl+S
+    if (e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) {
+      return false;
+    }
+  };
+
+  // Detect DevTools
+  setInterval(() => {
+    const devtools =
+      window.outerWidth - window.innerWidth > 160 ||
+      window.outerHeight - window.innerHeight > 160;
+
+    if (devtools) {
+      document.body.innerHTML = `
+        <div style="
+          height:100vh;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          background:black;
+          color:white;
+          font-size:30px;
+          font-family:sans-serif;
+        ">
+          Inspect Disabled
+        </div>
+      `;
+    }
+  }, 1000);
